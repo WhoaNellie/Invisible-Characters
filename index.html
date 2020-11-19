@@ -1,26 +1,26 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>My first Vue app</title>
+    <title>Invisible Character Finder</title>
     <script src="https://unpkg.com/vue"></script>
   </head>
   <body>
-    <div id="app">{{ message }}</div>
-
-    <textarea
-      name="text"
-      id="text"
-      cols="30"
-      rows="10"
-      placeholder="Paste Text Here"
-    ></textarea>
-    <button>Submit</button>
+    <div id="app">
+      <textarea
+        name="text"
+        id="text"
+        cols="30"
+        rows="10"
+        v-model="text"
+      ></textarea>
+      <button>Submit</button>
+    </div>
 
     <script>
       var app = new Vue({
         el: "#app",
         data: {
-          message: "Hello Vue!",
+          text: "",
         },
       });
     </script>
