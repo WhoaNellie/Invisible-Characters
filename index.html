@@ -14,14 +14,17 @@
                 v-model="text"
             ></textarea>
             <button v-on:click="findChars">Submit</button>
+            <div style="white-space: pre-wrap" ref="highlightedTxt"></div>
         </div>
 
         <script>
+            //nbsp either doesn't work or i can't find a good test for it
             let app = new Vue({
                 el: "#app",
                 data: {
                     text: "",
                     codes: [
+                        "202F",
                         "00A0",
                         "2000",
                         "2001",
@@ -46,10 +49,23 @@
                         let searchChars = this.codes.map(
                             (code) => `\\u${code}`
                         );
-                        searchChars = `[${searchChars.join("")}]`;
+                        // searchChars = `[${searchChars.join("")}]`;
+                        this.$refs.highlightedTxt.innerHTML = this.text;
 
-                        let regex = new RegExp(searchChars, "g");
-                        console.log(this.text.replace(regex, "!!!"));
+                        for (let i = 0; i < searchChars.length; i++) {
+                            const code = searchChars[i];
+                            let regex = new RegExp(code, "g");
+                            this.$refs.highlightedTxt.innerHTML = this.highlightedTxt.replace(
+                                regex,
+                                "<span>" + code + "</span>"
+                            );
+                        }
+
+                        // console.log(this.text.replace(regex, "!!!"));
+                        // this.highlightedTxt = this.text.replace(
+                        //     regex,
+                        //     "<span>" + regex + "</span>"
+                        // );
                     },
                 },
             });
